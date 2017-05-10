@@ -9,7 +9,7 @@ RUN docker-php-source extract \
 && apt-get update \
 && apt-get install libmcrypt-dev libldap2-dev vim nodejs -y \
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-&& npm install -g bower
+&& npm install -g bower \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo pdo_mysql \
 && docker-php-source delete \
