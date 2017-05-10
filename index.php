@@ -7,9 +7,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require __DIR__ . "/vendor/autoload.php";
 
-if (is_readable(__DIR__ . '/.env')) {
-    $dotenv = new Dotenv\Dotenv(__DIR__, '.env');
-    $dotenv->load();
+$dotenv = new Dotenv\Dotenv(__DIR__, '.env');
+$dotenv->overload();
+
+$cms_rpc_url = $_ENV['CMS_RPC_URL'];
+if (isset($cms_rpc_url) && $cms_rpc_url !== '') {
+    ThriftService::setEndPoint($cms_rpc_url);
 }
 
 // start session
