@@ -4,9 +4,12 @@ MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 COPY docs/docker/apache/*.conf /etc/apache2/sites-available/
 
 RUN docker-php-source extract \
+&& curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+&& curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer \
 && apt-get update \
-&& apt-get install libmcrypt-dev libldap2-dev vim -y \
-&& rm -rf /var/lib/apt/lists/* \
+&& apt-get install libmcrypt-dev libldap2-dev vim nodejs -y \
+&& apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+&& npm install -g bower
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
 && docker-php-ext-install ldap pdo pdo_mysql \
 && docker-php-source delete \
@@ -17,4 +20,5 @@ RUN docker-php-source extract \
 EXPOSE 80
 
 COPY . /var/www/html
-
+WORKDIR /var/www/html
+RUN make
