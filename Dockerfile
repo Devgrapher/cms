@@ -7,7 +7,7 @@ RUN docker-php-source extract \
 && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
 && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer \
 && apt-get update \
-&& apt-get install libmcrypt-dev libldap2-dev vim nodejs -y \
+&& apt-get install vim git nodejs libmcrypt-dev libldap2-dev -y \
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
 && npm install -g bower \
 && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
