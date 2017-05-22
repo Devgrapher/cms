@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require __DIR__ . "/vendor/autoload.php";
 
-$dotenv = new Dotenv\Dotenv(__DIR__, '.env');
-$dotenv->overload();
+if (is_readable('.env')) {
+    $dotenv = new Dotenv\Dotenv(__DIR__, '.env');
+    $dotenv->load();
+}
 
 $cms_rpc_url = $_ENV['CMS_RPC_URL'];
 if (isset($cms_rpc_url) && $cms_rpc_url !== '') {

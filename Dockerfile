@@ -1,8 +1,6 @@
 FROM php:7.1-apache
 MAINTAINER Kang Ki Tae <kt.kang@ridi.com>
 
-COPY docs/docker/apache/*.conf /etc/apache2/sites-available/
-
 RUN docker-php-source extract \
 
 # install common
@@ -30,10 +28,11 @@ RUN docker-php-source extract \
 
 # clean
 && apt-get autoclean -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-&& docker-php-source delete \
+&& docker-php-source delete
 
 # enable apache mod and site
-&& a2enmod rewrite \
+COPY docs/docker/apache/*.conf /etc/apache2/sites-available/
+RUN a2enmod rewrite \
 && a2dissite 000-default \
 && a2ensite ridibooks
 
