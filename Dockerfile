@@ -41,3 +41,9 @@ EXPOSE 80
 COPY . /var/www/html
 WORKDIR /var/www/html
 RUN make
+
+# volume for .env
+VOLUME /var/cms
+
+ENTRYPOINT ./docs/docker/entrypoint.sh
+CMD ["apache2-foreground"]
