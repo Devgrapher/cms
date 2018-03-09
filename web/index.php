@@ -8,8 +8,8 @@ if (is_readable(__DIR__ . '/../.env')) {
     $dotenv->overload();
 }
 
+$config = require __DIR__ . '/../config/config.php';
 $app = require __DIR__ . '/../src/app.php';
-require __DIR__ . '/../config/config.php';
 require __DIR__ . '/../src/controllers.php';
 
 $app->run();
